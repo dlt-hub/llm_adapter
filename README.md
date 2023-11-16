@@ -18,8 +18,8 @@ Poetry is used to manage library dependencies. Make sure to have Poetry installe
 Clone this repository or download the source code to your local machine. The primary function is contained in the `langchain_adapter.py` file.
 
 ```bash
-git clone https://your-repository-url
-cd your-repository-directory
+git clone https://github.com/dlt-hub/llm_adapter
+cd llm_adapter
 ```
 Usage
 
