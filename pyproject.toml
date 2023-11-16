@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "dltlangchain"
+version = "0.0.1"
+description = "Dlt production sources to Langchain"
+authors = ["Vasilije  <8619304+Vasilije1990@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.13"
+dlt = "^0.3.24"
+langchain = "^0.0.335"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
