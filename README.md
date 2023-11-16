@@ -45,3 +45,8 @@ data = [
 
 documents = langchain_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"])
 ```
+
+
+Open issues
+
+1. I need advice on the architecture here. Idea is to have unique IDs, merge keys etc in the Langchain format, but that requires a destination
