@@ -32,8 +32,9 @@ To use the langchain_adapter function in your Python script, first import it:
 python
 
 from langchain_adapter import langchain_adapter
-Then, call the function with your data:
+
 ```
+Then, call the function with your data:
 ```
 python
 
