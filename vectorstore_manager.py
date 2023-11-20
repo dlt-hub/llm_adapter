@@ -32,21 +32,26 @@ OPENAI_API_KEY = api_keys["openai_api_key"]
 embeddings = OpenAIEmbeddings()
 
 
-def _init_haystack_weaviate():
+def _init_haystack_pinecone():
     """
-    Initialize Weaviate haystack client
+    Initialize Pinecone haystack client
     """
+    # from milvus_haystack import MilvusDocumentStore
     api_keys = Config.get_api_keys()
+    from haystack.document_stores import PineconeDocumentStore
 
-    document_store = WeaviateDocumentStore(host=Config.get_weaviate_url(), port=8080, embedding_dim=768, index = "DLTLOADER", api_key=api_keys["weaviate_api_key"] )
+    document_store = PineconeDocumentStore(api_key=api_keys['pinecone_api_key'],
+                                           similarity="cosine",
+                                           environment="gcp-starter",
+                                           index="fjdfdj",
+                                           recreate_index=True,
+                                           embedding_dim=768)
+
+    # document_store = WeaviateDocumentStore(host=Config.get_weaviate_url(), port=8080, embedding_dim=768, index = "DLTLOADER", api_key=api_keys["weaviate_api_key"] )
     logging.info("Document store loaded")
     return document_store
 
-# out = _init_haystack_weaviate()
-# print("bla")
-#
-# out.write_documents([Document(content="This is a test document", meta={"name": "test"})])
-# print("blabla")
+
 
 
 

@@ -7,9 +7,10 @@ load_dotenv()
 
 class Config:
     """Configuration management class."""
-    WEAVIATE_URL = os.environ.get("WEAVIATE_URL", "https://my-vev-index-o4qitptw.weaviate.network")
+    WEAVIATE_URL = os.environ.get("WEAVIATE_URL", "https://cluster-ttst-p3c4qvfy.weaviate.network")
     WEAVIATE_API_KEY = os.environ.get('WEAVIATE_API_KEY', 'default_api_key')
     OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', 'default_openai_key')
+    PINECONE_API_KEY = os.environ.get('PINECONE_API_KEY', 'default_pinecone_key')
 
     @staticmethod
     def get_weaviate_url() -> str:
@@ -19,5 +20,6 @@ class Config:
     def get_api_keys() -> dict:
         return {
             "weaviate_api_key": Config.WEAVIATE_API_KEY,
-            "openai_api_key": Config.OPENAI_API_KEY
+            "openai_api_key": Config.OPENAI_API_KEY,
+            "pinecone_api_key": Config.PINECONE_API_KEY
         }

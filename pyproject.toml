@@ -15,9 +15,11 @@ weaviate-client = "^3.25.3"
 openai = "^1.3.3"
 pypdf = "^3.17.1"
 pdfplumber = "^0.10.3"
-farm-haystack = "^1.22.1"
+farm-haystack =  {version = "1.22.0", extras = ["pinecone"]}
 torch = "^2.1.1"
 tensorflow = "^2.15.0"
+milvus-haystack = "^0.0.2"
+pinecone-client = "^2.2.4"
 
 
 [build-system]
