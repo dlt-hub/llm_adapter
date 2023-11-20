@@ -1,19 +1,19 @@
-from typing import Any
+from typing import Any, Union, List
 
 from dlt.common.schema.typing import TColumnNames, TTableSchemaColumns
 from dlt.extract.decorators import resource as make_resource
 from dlt.extract.source import DltResource
-from langchain.schema.document import Document
+from langchain.schema.document import Document as LangchainDocument
+from haystack.schema import Document as HaystackDocument
 
-VECTORIZE_HINT = "x-qdrant-embed"
-
-def langchain_adapter(
+def llm_adapter(
     data: Any,
     to_content: TColumnNames = None,
     to_metadata: TColumnNames = None,
-) -> list[Document]:
-    """Prepares data for the Langchain destination by specifying which columns
-    should become a part of the Langchain page_content.
+    llm_framework: str = None,
+) -> List[Union[LangchainDocument, HaystackDocument]]:
+    """Prepares data for the Langchain or Haystack destination by specifying which columns
+    should become a part of the Langchain or Haystack page_content.
 
     Args:
         data (Any): The data to be transformed. It can be raw data or an instance
@@ -23,6 +23,7 @@ def langchain_adapter(
             Can be a single column name as a string or a list of column names.
         to_metadata (TColumnNames, optional): Specifies columns to add to Langchain metadata.
             Can be a single column name as a string or a list of column names.
+        llm_framework (str, optional): Specifies the framework to use. Can be Langchain or Haystack
 
     Returns:
         Document: Langchain Document object. https://api.python.langchain.com/en/latest/schema/langchain.schema.document.Document.html?highlight=document
@@ -34,10 +35,13 @@ def langchain_adapter(
         >>> data =     data = [
         {"name": "Anush", "last name": "Smith", "unique_id": "2835859394", "age": "30"},
         {"name": "Banush", "last name": "Jones", "unique_id": "2835859395", "age": "25"}]
-        >>> langchain_adapter(data, to_content="name", to_metadata="unique_id")
+        >>> llm_adapter(data, to_content="name", to_metadata="unique_id", llm_framework="langchain")
         [Langchain Document object]
     """
     # wrap `data` in a resource if not an instance already
+    if llm_framework not in ["langchain", "haystack"]:
+        raise ValueError("Invalid llm_framework. Must be 'langchain' or 'haystack'.")
+
     resource: DltResource
     if not isinstance(data, DltResource):
         resource_name: str = None
@@ -46,29 +50,20 @@ def langchain_adapter(
         resource = make_resource(data, name=resource_name)
     else:
         resource = data
-
-    # column_hints: TTableSchemaColumns = {}
-
     document_list = []
-
     for row in data:
-        # Handle multiple columns for content
-        if isinstance(to_content, list):
-            content = ' '.join([row.get(col, "") for col in to_content])
+        if llm_framework == "langchain":
+            # For Langchain, create a Document with 'page_content' and 'metadata'
+            content = ' '.join([row.get(col, "") for col in to_content]) if isinstance(to_content, list) else row.get(to_content, "")
+            metadata = {col: row.get(col, "") for col in to_metadata} if isinstance(to_metadata, list) else {to_metadata: row.get(to_metadata, "")}
+            doc = LangchainDocument(page_content=content, metadata=metadata)
         else:
-            content = row.get(to_content, "") if to_content else ""
+            content = ' '.join(
+                    [row.get(col, '') for col in (to_content if isinstance(to_content, list) else [to_content])])
 
-        # Handle multiple columns for metadata
-        metadata = {}
-        if isinstance(to_metadata, list):
-            for col in to_metadata:
-                metadata[col] = row.get(col, "")
-        elif to_metadata:
-            metadata[to_metadata] = row.get(to_metadata, "")
-
-        # Create a Document object with the specified content and metadata
-        doc = Document(page_content=content, metadata=metadata)
-
+            # Combine fields for metadata
+            meta = {col: row.get(col, '') for col in (to_metadata if isinstance(to_metadata, list) else [to_metadata])}
+            doc = HaystackDocument(content=content, meta=meta)
         # Append the created Document object to the document list
         document_list.append(doc)
 

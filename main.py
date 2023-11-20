@@ -1,27 +1,58 @@
-from langchain_adapter import langchain_adapter
+import posixpath
+
+import pdfplumber
+from llm_adapter import llm_adapter
 import dlt
+try:
+    from filesystem import FileItemDict, filesystem, readers, read_csv, read_jsonl, read_parquet  # type: ignore
+except ImportError:
+    from filesystem import (
+        FileItemDict,
+        filesystem,
+        readers,
+        read_csv,
+        read_jsonl,
+        read_parquet,
+    )
+import weaviate
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.retrievers import WeaviateHybridSearchRetriever
+from dotenv import load_dotenv
+load_dotenv()
 
-# Press the green button in the gutter to run the script.
+import logging
+from config import Config
 
-@dlt.resource( name="table_name",primary_key="id", write_disposition="merge")
-def users():
-    yield [
-        {'id': 1, 'name': 'Alice 2'},
-        {'id': 2, 'name': 'Bob 2'}
-    ]
+api_keys = Config.get_api_keys()
 
+OPENAI_API_KEY = api_keys["openai_api_key"]
+embeddings = OpenAIEmbeddings()
+
+
+
+TESTS_BUCKET_URL = posixpath.abspath("/Users/vasa/PycharmProjects/DLTLangchain/.data/")
+
+jsonl_reader = readers(TESTS_BUCKET_URL, file_glob="**/*.jsonl").read_jsonl(
+    chunksize=10000
+)
 @dlt.source
-def source_name():
-    return users
+def filesystem_jsonl():
+    return jsonl_reader
+
 
 if __name__ == '__main__':
-    data = [
-        {"name": "Anush", "last name": "Smith", "unique_id": "2835859394", "age": "30"},
-        {"name": "Banush", "last name": "Jones", "unique_id": "2835859395", "age": "25"}
-    ]
+    # data = [
+    #     {"name": "Anush", "age": "30", "id": "2835859394", "email": "111@gmail.com", "city": "Yerevan"},
+    #     {"name": "Banush", "age": "32", "id": "2835859395", "email": "222@gmail.com", "city": "London"},
+    # ]
 
-    documents = langchain_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"])
+    data = list(filesystem_jsonl())
+
+    documents = llm_adapter(data, to_content=["name", "age", "city"], to_metadata=["id", "email"], llm_framework='haystack')
     print(documents)
+
+
+
 
     # print(users().compute_table_schema())
 

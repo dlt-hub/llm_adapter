@@ -31,7 +31,7 @@ To use the langchain_adapter function in your Python script, first import it:
 ```
 python
 
-from langchain_adapter import langchain_adapter
+from llm_adapter import llm_adapter
 
 ```
 Then, call the function with your data:
@@ -43,10 +43,6 @@ data = [
     # ... other data entries ...
 ]
 
-documents = langchain_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"])
+documents = llm_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"], llm_framework='langchain')
 ```
 
-
-Open issues
-
-1. I need advice on the architecture here. Idea is to have unique IDs, merge keys etc in the Langchain format, but that requires a destination
