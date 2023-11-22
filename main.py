@@ -45,11 +45,15 @@ if __name__ == '__main__':
     #     {"name": "Anush", "age": "30", "id": "2835859394", "email": "111@gmail.com", "city": "Yerevan"},
     #     {"name": "Banush", "age": "32", "id": "2835859395", "email": "222@gmail.com", "city": "London"},
     # ]
-
+    #loads data from fylesystem
     data = list(filesystem_jsonl())
 
     documents = llm_adapter(data, to_content=["name", "age", "city"], to_metadata=["id", "email"], llm_framework='haystack')
-    print(documents)
+    from vectorstore_manager import _init_haystack_pinecone
+    # retriever = _init_haystack_pinecone()
+    # retriever.write_documents(documents)
+    #
+    # print(documents)
 
 
 

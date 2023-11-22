@@ -36,7 +36,6 @@ from llm_adapter import llm_adapter
 ```
 Then, call the function with your data:
 ```
-python
 
 data = [
     {"name": "Anush", "last name": "Smith", "unique_id": "2835859394", "age": "30"},
@@ -45,4 +44,14 @@ data = [
 
 documents = llm_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"], llm_framework='langchain')
 ```
+The same structure works for haystack
+In the main function, after adding Pinecone key, you can also write haystack docs to Pinecone
+```
+    documents = llm_adapter(data, to_content=["name", "age", "city"], to_metadata=["id", "email"], llm_framework='haystack')
+    from vectorstore_manager import _init_haystack_pinecone
 
+    #example of haystack writer, requries pinecone key to be provided
+    retriever = _init_haystack_pinecone()
+    retriever.write_documents(documents)
+
+```
