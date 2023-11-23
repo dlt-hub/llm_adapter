@@ -1,11 +1,11 @@
-# Langchain Adapter
+# Haystack Adapter
 
-This project contains the `langchain_adapter` function, a Python utility designed to adapt a given dataset into a structured format suitable for document processing. 
+This project contains the `llm_adapter` function, a Python utility designed to adapt a given dataset into a structured format suitable for document processing. 
 It is particularly useful for transforming data into a format that can be easily handled by document processing or natural language processing (NLP) systems.
 
 ## Getting Started
 
-These instructions will guide you through setting up the `langchain_adapter` function in your local environment.
+These instructions will guide you through setting up the `llm_adapter` function in your local environment.
 
 ### Prerequisites
 
@@ -15,7 +15,7 @@ Poetry is used to manage library dependencies. Make sure to have Poetry installe
 
 ### Installation
 
-Clone this repository or download the source code to your local machine. The primary function is contained in the `langchain_adapter.py` file.
+Clone this repository or download the source code to your local machine. The primary function is contained in the `llm_adapter.py` file.
 
 ```bash
 git clone https://github.com/dlt-hub/llm_adapter
@@ -29,7 +29,7 @@ Run the following command to start the Poetry shell:
 
 ```poetry shell```
 
-To use the langchain_adapter function in your Python script, first import it:
+To use the llm_adapter function in your Python script, first import it:
 ```
 
 from llm_adapter import llm_adapter
@@ -43,7 +43,7 @@ data = [
     # ... other data entries ...
 ]
 
-documents = llm_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"], llm_framework='langchain')
+documents = llm_adapter(data, to_content=["name", "last name"], to_metadata=["unique_id", "age"], llm_framework='haystack')
 ```
 The same structure works for haystack
 In the main function, after adding Pinecone key, you can also write haystack docs to Pinecone
