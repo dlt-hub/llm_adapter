@@ -1,6 +1,4 @@
 import posixpath
-
-import pdfplumber
 from llm_adapter import llm_adapter
 import dlt
 try:
@@ -47,17 +45,12 @@ if __name__ == '__main__':
     # ]
     #loads data from fylesystem
     data = list(filesystem_jsonl())
-
     documents = llm_adapter(data, to_content=["name", "age", "city"], to_metadata=["id", "email"], llm_framework='haystack')
+    print(documents)
     from vectorstore_manager import _init_haystack_pinecone
     # retriever = _init_haystack_pinecone()
     # retriever.write_documents(documents)
-    #
     # print(documents)
-
-
-
-
     # print(users().compute_table_schema())
 
 

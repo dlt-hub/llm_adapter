@@ -23,13 +23,14 @@ cd llm_adapter
 ```
 Usage
 
+An example of the implementation is in the 'demo' folder
+
 Run the following command to start the Poetry shell:
 
 ```poetry shell```
 
 To use the langchain_adapter function in your Python script, first import it:
 ```
-python
 
 from llm_adapter import llm_adapter
 
