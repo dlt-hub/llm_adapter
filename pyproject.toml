@@ -6,8 +6,9 @@ authors = ["Vasilije  <8619304+Vasilije1990@users.noreply.github.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = ">=3.8.1,<3.13"
 haystack-ai = "^2.0.0b3"
+dlt = {version = "^0.4.2", extras = ["duckdb"]}
 
 
 [build-system]
