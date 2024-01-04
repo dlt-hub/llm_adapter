@@ -43,7 +43,7 @@ def _init_haystack_pinecone():
     document_store = PineconeDocumentStore(api_key=api_keys['pinecone_api_key'],
                                            similarity="cosine",
                                            environment="gcp-starter",
-                                           index="fjdfdj",
+                                           index="demo",
                                            recreate_index=True,
                                            embedding_dim=768)
 

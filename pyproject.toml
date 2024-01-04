@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "dlt-llm-adapter"
+version = "0.1.0"
+description = ""
+authors = ["Vasilije  <8619304+Vasilije1990@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+haystack-ai = "^2.0.0b3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
