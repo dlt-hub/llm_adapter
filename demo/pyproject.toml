@@ -20,6 +20,9 @@ torch = "^2.1.1"
 tensorflow = "^2.15.0"
 milvus-haystack = "^0.0.2"
 pinecone-client = "^2.2.4"
+tensorflow-io-gcs-filesystem = "0.34.0"
+langchain-community = "^0.0.10"
+
 
 
 [build-system]
