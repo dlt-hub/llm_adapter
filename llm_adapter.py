@@ -59,7 +59,7 @@ def llm_adapter(
             metadata = {col: row.get(col, "") for col in to_metadata} if isinstance(to_metadata, list) else {to_metadata: row.get(to_metadata, "")}
             doc = LangchainDocument(page_content=content, metadata=metadata)
         else:
-            from haystack.schema import Document as HaystackDocument
+            from haystack import Document as HaystackDocument
             content = ' '.join(
                     [row.get(col, '') for col in (to_content if isinstance(to_content, list) else [to_content])])
 

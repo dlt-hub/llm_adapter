@@ -29,7 +29,11 @@ Run the following command to start the Poetry shell:
 
 ```poetry shell```
 
-To use the llm_adapter function in your Python script, first import it:
+To see a working example, navigate to the `demo` folder and run the following command:
+
+```python main.py```
+
+Otherwise, to use the llm_adapter function in your Python script, first import it:
 ```
 
 from llm_adapter import llm_adapter
@@ -56,3 +60,7 @@ In the main function, after adding Pinecone key, you can also write haystack doc
     retriever.write_documents(documents)
 
 ```
+In addition to this, additional feature was added which represents Haystack 2.0 integration with the dlthub.
+
+In that context, dlthub is used for document loading and transformation as a part of the Haystack pipeline.
+Each element was defined as a Haystack 2.0 component and can be used as a part of the Haystack pipeline.
