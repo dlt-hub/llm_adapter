@@ -17,7 +17,8 @@ def coin_list():
 
 
 @dlt.source
-def crypto_data(name = "crypto_source"):
+def crypto_data(name = "crypto_source", parse_json = False, chunk_size = 1):
+
     yield coin_list()
 
 
@@ -37,15 +38,31 @@ class CryptoDataConnector(DltConnector):
 
         return {"documents": haystack_docs}
 
+if __name__ == '__main__':
+    # from haystack import Pipeline
+
+    # p = Pipeline()
+    #
+    # p.add_component("dltCryptoConnector", CryptoDataConnector(
+    #     source=crypto_data(),
+    #     resource=coin_list(),
+    #     pipeline_name="my_crypto_pipeline",  # Specify your actual destination, e.g., "postgresql", "duckdb", etc.
+    #     full_refresh=True,
+    #     dataset_name="my_crypto_dataset"))
+    #
+    #
+    # p.run(data={})
 
 
 
-crypto_connector = CryptoDataConnector(
-    source=crypto_data(),
-    resource=coin_list(),
-    pipeline_name="my_crypto_pipeline",  # Specify your actual destination, e.g., "postgresql", "duckdb", etc.
-    full_refresh=True,
-    dataset_name="my_crypto_dataset"
-)
+    crypto_connector = CryptoDataConnector(
+        source=crypto_data(),
+        resource=coin_list(),
+        pipeline_name="my_crypto_pipeline",  # Specify your actual destination, e.g., "postgresql", "duckdb", etc.
+        full_refresh=True,
+        dataset_name="my_crypto_dataset"
+    )
 
-documents = crypto_connector.run()
+
+
+    documents = crypto_connector.run()
