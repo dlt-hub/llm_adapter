@@ -1,12 +1,13 @@
 # Haystack Adapter
 
-This project contains the `llm_adapter` function, a Python utility designed to adapt a given dataset into a structured format suitable for document processing. 
-It is particularly useful for transforming data into a format that can be easily handled by document processing or natural language processing (NLP) systems.
+This project aims to integrate dlt into Haystack
+It cointains two main functions:
+- llm_adapter -> converts the data into the format that can be used by Haystack
+- haystack_adapter -> wraps dlt into Haystack pipeline
 
 ## Getting Started
 
-These instructions will guide you through setting up the `llm_adapter` function in your local environment.
-
+These instructions will guide you through setting up the Haystack integration in your local environment.
 ### Prerequisites
 
 You need Python installed on your system. The function is compatible with Python 3.11 and above. You can download Python from [here](https://www.python.org/downloads/).
@@ -21,6 +22,19 @@ Clone this repository or download the source code to your local machine. The pri
 git clone https://github.com/dlt-hub/llm_adapter
 cd llm_adapter
 ```
+
+
+
+### Haystack 2.0 Integration
+
+The `DltConnector` function is used to integrate dlt into the Haystack pipeline. The function is contained in the `dlt_haystack.py` file.
+
+```python cryptodataconnector.py```
+
+
+
+
+### dlt llm adapter
 Usage
 
 An example of the implementation is in the 'demo' folder
